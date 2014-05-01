@@ -22,7 +22,7 @@ namespace ProfilerCpp {
     }
     
     void Timer::stop() {
-        totalTime += duration_cast<duration<double>>(std::chrono::high_resolution_clock::now() - startTime).count();
+        totalTime += std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - startTime).count();
     }
     
     void Timer::clear() {
@@ -34,7 +34,7 @@ namespace ProfilerCpp {
     void timerStart(const char * const n) {
         std::map<const char*, Timer>::iterator it = timerMap.find(n);
         if (it == timerMap.end()) {
-            it = timerMap.insert(std::pair<const char *, Timer>(n,Timer(n))).first;
+            it = timerMap.insert(std::pair<const char *, Timer>(n,Timer())).first;
         }
         it->second.start();
     }
